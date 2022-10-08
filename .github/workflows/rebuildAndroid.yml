@@ -63,7 +63,7 @@ jobs:
           cd haxelib/extension-ffmpeg/git/lib.src
           sudo chmod -R 777 *
           ./build_android64.sh
-          cd ../../../../
+          cd ../
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 

@@ -37,7 +37,8 @@ jobs:
 
       - name: Install Haxelibs
         run: |
-          haxelib setup ~/haxelib
+          sudo chmod -R 777 *
+          haxelib setup
           haxelib --quiet install lime 7.9.0
           haxelib --quiet install openfl 9.1.0
           haxelib git extension-ffmpeg https://github.com/Sirox228/extension-ffmpeg

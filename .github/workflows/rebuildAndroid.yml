@@ -64,9 +64,11 @@ jobs:
           sudo chmod -R 777 *
           ./build_android64.sh
           cd ../../../../
-          haxelib run lime rebuild extension-ffmpeg -D HXCPP_ARM64
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      - name: Rebuild
+        run: haxelib run lime rebuild extension-ffmpeg -D HXCPP_ARM64
 
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4

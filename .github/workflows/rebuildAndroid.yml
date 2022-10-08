@@ -37,7 +37,7 @@ jobs:
 
       - name: Install Haxelibs
         run: |
-          haxelib setup
+          haxelib setup ~/haxelib
           haxelib --quiet install lime 7.9.0
           haxelib --quiet install openfl 9.1.0
           haxelib git extension-ffmpeg https://github.com/Sirox228/extension-ffmpeg
@@ -58,7 +58,7 @@ jobs:
 
       - name: Compile
         run: |
-          ./extension-ffmpeg/git/lib.src/build_android64.sh
+          ./haxelib/extension-ffmpeg/git/lib.src/build_android64.sh
           haxelib run lime rebuild extension-ffmpeg -D HXCPP_ARM64
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}

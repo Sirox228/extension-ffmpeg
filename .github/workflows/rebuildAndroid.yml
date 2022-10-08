@@ -60,6 +60,8 @@ jobs:
         run: |
           ./extension-ffmpeg/git/lib.src/build_android64.sh
           haxelib run lime rebuild extension-ffmpeg
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4

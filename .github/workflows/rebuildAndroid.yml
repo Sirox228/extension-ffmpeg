@@ -59,7 +59,9 @@ jobs:
 
       - name: Compile
         run: |
+          sudo chmod -R 777 *
           cd haxelib/extension-ffmpeg/git/lib.src
+          sudo chmod -R 777 *
           ./build_android64.sh
           cd ../../../../
           haxelib run lime rebuild extension-ffmpeg -D HXCPP_ARM64

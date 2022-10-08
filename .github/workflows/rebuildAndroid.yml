@@ -59,11 +59,9 @@ jobs:
 
       - name: Compile
         run: |
-          ls haxelib
-          ls haxelib/extension-ffmpeg
-          ls haxelib/extension-ffmpeg/git
-          ls haxelib/extension-ffmpeg/git/lib.src
-          ./haxelib/extension-ffmpeg/git/lib.src/build_android64.sh
+          cd haxelib/extension-ffmpeg/git/lib.src
+          ./build_android64.sh
+          cd ../../../../
           haxelib run lime rebuild extension-ffmpeg -D HXCPP_ARM64
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}

@@ -75,4 +75,10 @@ jobs:
         uses: actions/upload-artifact@v2.2.4
         with:
           name: androidBuild
-          path: lib.build
+          path: export
+
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v2.2.4
+        with:
+          name: androidBuild
+          path: export

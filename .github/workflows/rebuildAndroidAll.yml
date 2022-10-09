@@ -55,27 +55,56 @@ jobs:
           haxelib set lime 7.9.0
           haxelib set openfl 9.1.0
           haxelib list
-        env:
-          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-
-      - name: Compile
-        run: |
           sudo chmod -R 777 *
           cd haxelib/extension-ffmpeg/git/lib.src
-          sudo chmod -R 777 *
-          ./build_android64.sh
-          ./build_android32.sh
-          ./build_androidx86.sh
-          ./build_androidx86_64.sh
-          cd ../
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
-      - name: Rebuild
-        run: haxelib run lime rebuild extension-ffmpeg android
+      - name: Compile arm64
+        run: |
+          sudo chmod -R 777 *
+          ./build_android64.sh
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      - name: Compile arm32
+        run: |
+          sudo chmod -R 777 *
+          ./build_android32.sh
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      - name: Compile x86
+        run: |
+          sudo chmod -R 777 *
+          ./build_androidx86.sh
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      - name: Compile x86_64
+        run: |
+          sudo chmod -R 777 *
+          ./build_androidx86_64.sh
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+          
+      - name: exit directory
+        run: cd ../
+
+      - name: Rebuild arm64
+        run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_ARM64
+
+      - name: Rebuild arm32
+        run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_ARM32
+
+      - name: Rebuild x86
+        run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_X86
+
+      - name: Rebuild x86_64
+        run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_X86_64
 
       - name: Publish Artifact
         uses: actions/upload-artifact@v2.2.4
         with:
-          name: androidBuild
+          name: androidLibs
           path: ndll/Android

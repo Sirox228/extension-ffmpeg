@@ -240,7 +240,7 @@
     </section>
 
     <section if="android">
-      <ext value=".a" />
+      <ext value=".so" />
       <!--in here we set the place where the libs are
           for multiple archs -->
       <section if="HXCPP_ARMV7">

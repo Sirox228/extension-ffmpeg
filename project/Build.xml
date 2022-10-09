@@ -2,7 +2,7 @@
 <xml>
 
   <!-- Variables and compile flags.
-    <set name="HXCPP_CPP11" value="1" />
+    <set name="HXCPP_CPP10" value="1" />
   -->
   <set name="OUTPUT_DIR" value="../ndll" unless="OUTPUT_DIR" />
   <set name="DEBUGEXTRA" value="-debug" if="fulldebug" />
@@ -58,9 +58,9 @@
   </section>
 
   <section if="android">
-    <echo value="Target platform: Android (aarch64)" />
-
-    <set name="LIBFFMPEG_BUILD" value="../lib.build/Android64" />
+    <echo value="Target platform: Android (all)" />
+    <!--we dont set anything here because it 
+        needs to be chosen later-->
   </section>
 
   <echo value="==========================" />
@@ -123,7 +123,7 @@
   <target id="NDLL" output="${LIBPREFIX}extension-ffmpeg${DEBUGEXTRA}${LIBSUFFIX}" tool="linker" toolid="${STD_MODULE_LINK}">
     <outdir name="${OUTPUT_DIR}/${BINDIR}" />
 
-    <ext value=".a" />
+    <ext value=".so" />
 
     <section if="windows">
       <ext value=".ndll" />
@@ -240,11 +240,21 @@
     </section>
 
     <section if="android">
-      <ext value=".a" />
-
-      <!-- Prioritize local built libs over system libs. -->
-      <flag value="-L${LIBFFMPEG_BUILD}" />
-      <flag value="-L/usr/lib" />
+      <ext value=".so" />
+      <!--in here we set the place where the libs are
+          for multiple archs -->
+      <section if="HXCPP_ARMV7"/>
+        <flag value="-L../../lib.build/android32" />
+      </section>
+      <section if="HXCPP_ARM64"/>
+        <flag value="-L../../lib.build/android64" />
+      </section>
+      <section if="HXCPP_X86"/>
+        <flag value="-L../../lib.build/androidx86" />
+      </section>
+      <section if="HXCPP_x86_64"/>
+        <flag value="-L../../lib.build/androidx86_64" />
+      </section>
 
       <lib name="-lbz2" />
       <lib name="-llzma" />

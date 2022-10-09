@@ -41,6 +41,7 @@ jobs:
           sudo chmod -R 777 haxelib
           haxelib --quiet install lime 7.9.0
           haxelib --quiet install openfl 9.1.0
+          haxelib --quiet --never run lime setup
           haxelib git extension-ffmpeg https://github.com/Sirox228/extension-ffmpeg
           
 

@@ -56,12 +56,12 @@ jobs:
           haxelib set openfl 9.1.0
           haxelib list
           sudo chmod -R 777 *
-          cd haxelib/extension-ffmpeg/git/lib.src
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Compile arm64
         run: |
+          cd haxelib/extension-ffmpeg/git/lib.src
           sudo chmod -R 777 *
           ./build_android64.sh
         env:
@@ -69,6 +69,7 @@ jobs:
 
       - name: Compile arm32
         run: |
+          cd haxelib/extension-ffmpeg/git/lib.src
           sudo chmod -R 777 *
           ./build_android32.sh
         env:
@@ -76,6 +77,7 @@ jobs:
 
       - name: Compile x86
         run: |
+          cd haxelib/extension-ffmpeg/git/lib.src
           sudo chmod -R 777 *
           ./build_androidx86.sh
         env:
@@ -83,13 +85,11 @@ jobs:
 
       - name: Compile x86_64
         run: |
+          cd haxelib/extension-ffmpeg/git/lib.src
           sudo chmod -R 777 *
           ./build_androidx86_64.sh
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-          
-      - name: exit directory
-        run: cd ../
 
       - name: Rebuild arm64
         run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_ARM64

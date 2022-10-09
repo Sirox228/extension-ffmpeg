@@ -54,19 +54,12 @@ pushd ffmpeg
 popd
 
 # Export the necessary binaries.
-OUTPUT_DIR=../lib.build/androidx86
+OUTPUT_DIR=../lib.build/android
 mkdir -p $OUTPUT_DIR
-cp -f ffmpeg/libavcodec/libavcodec.so $OUTPUT_DIR/libavcodec.so
-cp -f ffmpeg/libavdevice/libavdevice.so $OUTPUT_DIR/libavdevice.so
-cp -f ffmpeg/libavfilter/libavfilter.so $OUTPUT_DIR/libavfilter.so
-cp -f ffmpeg/libavformat/libavformat.so $OUTPUT_DIR/libavformat.so
-cp -f ffmpeg/libavutil/libavutil.so $OUTPUT_DIR/libavutil.so
-cp -f ffmpeg/libswresample/libswresample.so $OUTPUT_DIR/libswresample.so
-cp -f ffmpeg/libswscale/libswscale.so $OUTPUT_DIR/libswscale.so
-cp -f ffmpeg/libavcodec/libavcodec.a $OUTPUT_DIR/libavcodec.a
-cp -f ffmpeg/libavdevice/libavdevice.a $OUTPUT_DIR/libavdevice.a
-cp -f ffmpeg/libavfilter/libavfilter.a $OUTPUT_DIR/libavfilter.a
-cp -f ffmpeg/libavformat/libavformat.a $OUTPUT_DIR/libavformat.a
-cp -f ffmpeg/libavutil/libavutil.a $OUTPUT_DIR/libavutil.a
-cp -f ffmpeg/libswresample/libswresample.a $OUTPUT_DIR/libswresample.a
-cp -f ffmpeg/libswscale/libswscale.a $OUTPUT_DIR/libswscale.a
+cp -f ffmpeg/libavcodec/libavcodec.a $OUTPUT_DIR/libavcodec-x86.a
+cp -f ffmpeg/libavdevice/libavdevice.a $OUTPUT_DIR/libavdevice-x86.a
+cp -f ffmpeg/libavfilter/libavfilter.a $OUTPUT_DIR/libavfilter-x86.a
+cp -f ffmpeg/libavformat/libavformat.a $OUTPUT_DIR/libavformat-x86.a
+cp -f ffmpeg/libavutil/libavutil.a $OUTPUT_DIR/libavutil-x86.a
+cp -f ffmpeg/libswresample/libswresample.a $OUTPUT_DIR/libswresample-x86.a
+cp -f ffmpeg/libswscale/libswscale.a $OUTPUT_DIR/libswscale-x86.a

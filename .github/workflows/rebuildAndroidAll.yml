@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: rebuildAndroid64
+name: rebuildAndroidAll
 
 # Controls when the action will run.
 on:

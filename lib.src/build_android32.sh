@@ -57,10 +57,10 @@ popd
 # Export the necessary binaries.
 OUTPUT_DIR=../lib.build/android
 mkdir -p $OUTPUT_DIR
-cp -f ffmpeg/libavcodec/libavcodec.a $OUTPUT_DIR/libavcodec-64.a
-cp -f ffmpeg/libavdevice/libavdevice.a $OUTPUT_DIR/libavdevice-64.a
-cp -f ffmpeg/libavfilter/libavfilter.a $OUTPUT_DIR/libavfilter-64.a
-cp -f ffmpeg/libavformat/libavformat.a $OUTPUT_DIR/libavformat-64.a
-cp -f ffmpeg/libavutil/libavutil.a $OUTPUT_DIR/libavutil-64.a
-cp -f ffmpeg/libswresample/libswresample.a $OUTPUT_DIR/libswresample-64.a
-cp -f ffmpeg/libswscale/libswscale.a $OUTPUT_DIR/libswscale-64.a
+cp -f ffmpeg/libavcodec/libavcodec.a $OUTPUT_DIR/libavcodec-v7.a
+cp -f ffmpeg/libavdevice/libavdevice.a $OUTPUT_DIR/libavdevice-v7.a
+cp -f ffmpeg/libavfilter/libavfilter.a $OUTPUT_DIR/libavfilter-v7.a
+cp -f ffmpeg/libavformat/libavformat.a $OUTPUT_DIR/libavformat-v7.a
+cp -f ffmpeg/libavutil/libavutil.a $OUTPUT_DIR/libavutil-v7.a
+cp -f ffmpeg/libswresample/libswresample.a $OUTPUT_DIR/libswresample-v7.a
+cp -f ffmpeg/libswscale/libswscale.a $OUTPUT_DIR/libswscale-v7.a

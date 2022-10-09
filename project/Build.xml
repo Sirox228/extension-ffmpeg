@@ -4,7 +4,7 @@
   <!-- Variables and compile flags.
     <set name="HXCPP_CPP10" value="1" />
   -->
-  <set name="OUTPUT_DIR" value="../ndll" unless="OUTPUT_DIR" />
+  <set name="OUTPUT_DIR" value="../output" unless="OUTPUT_DIR" />
   <set name="DEBUGEXTRA" value="-debug" if="fulldebug" />
   <set name="LIBSUFFIX" value="${HX_TARGET_SUFFIX}" if="HX_TARGET_SUFFIX" />
   <set name="LIBSUFFIX" value="${LIBEXTRA}" unless="LIBSUFFIX" />

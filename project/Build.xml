@@ -240,7 +240,7 @@
     </section>
 
     <section if="android">
-      <ext value=".so" />
+      <ext value=".a" />
       <!--in here we set the place where the libs are
           for multiple archs -->
       <section if="HXCPP_ARMV7">
@@ -256,8 +256,8 @@
         <flag value="-L../lib.build/androidx86_64" />
       </section>
 
-      <lib name="-lbz2" />
-      <lib name="-llzma" />
+      <!-- <lib name="-lbz2" /> -->
+      <!-- <lib name="-llzma" /> -->
       <lib name="-lm" />
       <lib name="-lz" />
       <!-- ORDER IS IMPORTANT! avformat must be included first. -->

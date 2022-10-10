@@ -48,5 +48,5 @@ jobs:
           haxelib --quiet install format
           haxelib --quiet install hxp
           haxelib --quiet install hxcpp
-          lime rebuild tools
-          lime rebuild android
+          haxelib run lime rebuild tools
+          haxelib run lime rebuild android

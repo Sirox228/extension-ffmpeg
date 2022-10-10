@@ -18,6 +18,7 @@ jobs:
           haxelib setup haxelib
           sudo chmod -R 777 haxelib
           haxelib git extension-ffmpeg https://github.com/Sirox228/extension-ffmpeg
+          rm -r haxelib/extension-ffmpeg/git/lib.src/ffmpeg/git
 
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
@@ -60,7 +61,7 @@ jobs:
           ./build_androidx86_64.sh
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-
+          
       - name: Upload artifact
         uses: actions/upload-artifact@v1.0.0
         with:

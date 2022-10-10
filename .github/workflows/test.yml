@@ -27,16 +27,7 @@ jobs:
         run: |
           sudo apt install git -y # just to be sure that git is installed
           haxelib git lime https://github.com/player-03/lime.git submodules
-          pwd
-          ls .
-          ls /opt
-          ls /opt/hostedtoolcache
-          ls /opt/hostedtoolcache/haxe
-          ls /opt/hostedtoolcache/haxe/4.2.5
-          ls /opt/hostedtoolcache/haxe/4.2.5/x64
-          ls /opt/hostedtoolcache/haxe/4.2.5/x64/lib
-          ls /opt/hostedtoolcache/haxe/4.2.5/x64/lib/lime
-          ls /opt/hostedtoolcache/haxe/4.2.5/x64/lib/lime/git
+          cd ../../../../
           pushd [/opt/hostedtoolcache/haxe/4.2.5/x64/lib/lime/git]
           git branch # "submodules" should be highlighted
           ls project/lib/cairo-files.xml # should print the file

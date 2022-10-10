@@ -79,10 +79,7 @@ jobs:
         with:
           path: haxelib
           key: ${{ runner.os }}-build-${{ env.cache-name }}
-          restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+          restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
           
   lime-rebuild-ffmpeg:
     needs: compile-ffmpeg
@@ -138,10 +135,7 @@ jobs:
         with:
           path: haxelib
           key: ${{ runner.os }}-build-${{ env.cache-name }}
-          restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+          restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
 
       - name: Lime Rebuild
         run: haxelib run lime rebuild extension-ffmpeg android -fno-integrated-as

@@ -58,6 +58,7 @@ jobs:
         with:
           submodules: recursive
 
+      # (sirox) crutch because idk how to get a value from another job
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
         id: setup-ndk

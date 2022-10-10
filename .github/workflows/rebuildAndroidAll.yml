@@ -116,21 +116,25 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: tmparm64
+          path: haxelib
 
       - name: Download arm32 Builded ffmpeg
         uses: actions/download-artifact@v1
         with:
           name: tmparm32
+          path: haxelib
 
       - name: Download x86 Builded ffmpeg
         uses: actions/download-artifact@v1
         with:
           name: tmpx86
+          path: haxelib
 
       - name: Download x86_64 Builded ffmpeg
         uses: actions/download-artifact@v1
         with:
           name: tmpx86_64
+          path: haxelib
 
       - name: remove tmp arm64
         uses: geekyeggo/delete-artifact@v1
@@ -154,7 +158,7 @@ jobs:
 
       - name: Lime Rebuild
         run: |
-          cp -r extension-ffmpeg haxelib/
+          tree haxelib
           haxelib run lime rebuild extension-ffmpeg android
 
       - name: upload rebuilded libs

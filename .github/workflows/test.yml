@@ -31,7 +31,7 @@ jobs:
           haxelib setup haxelib
           sudo chmod -R 777 haxelib # why tf permissions for writing are not given ._.
           haxelib git lime https://github.com/player-03/lime.git submodules
-          pushd [/opt/hostedtoolcache/haxe/4.2.5/x64/lib/lime/git]
+          pushd [/home/runner/work/extension-ffmpeg/extension-ffmpeg/haxelib/lime/git]
           git branch # "submodules" should be highlighted
           ls project/lib/cairo-files.xml # should print the file
           ls project/lib/cairo/files.xml # should say "no such file or directory"

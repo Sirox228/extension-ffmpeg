@@ -12,8 +12,6 @@ jobs:
 
       - name: Lime Test
         run: |
-          haxelib setup haxelib
-          sudo chmod -R 777 haxelib # why tf permissions for writing are not given ._.
           haxelib git lime https://github.com/player-03/lime.git submodules
           haxelib path lime
 
@@ -28,8 +26,6 @@ jobs:
       - name: Lime Test
         run: |
           sudo apt install git -y # just to be sure that git is installed
-          haxelib setup haxelib
-          sudo chmod -R 777 haxelib # why tf permissions for writing are not given ._.
           haxelib git lime https://github.com/player-03/lime.git submodules
           pushd [/home/runner/work/extension-ffmpeg/extension-ffmpeg/haxelib/lime/git]
           git branch # "submodules" should be highlighted

@@ -84,12 +84,21 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v2
 
+      - name: Setup Android NDK
+        uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r21e
+
+
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.2.5
 
       - name: install
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
         run: |
           haxelib setup haxelib
           sudo chmod -R 777 haxelib
@@ -97,30 +106,18 @@ jobs:
           haxelib --quiet install format
           haxelib --quiet install hxp
           haxelib --quiet install hxcpp
-          haxelib --quiet --never run lime setup
-          haxelib --quiet install openfl 9.1.0
-
-      - name: Setup Android NDK
-        uses: nttld/setup-ndk@v1
-        id: setup-ndk
-        with:
-          ndk-version: r21e
-
-      - name: Setup Lime
-        run: |
-          haxelib run lime setup -alias -y
+          haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
-          haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config ANDROID_SETUP true
+          haxelib run lime rebuild tools
+          haxelib run lime rebuild android
+          haxelib --quiet --never run lime setup
+          haxelib --quiet install openfl 9.1.0
           haxelib set lime git
           haxelib set openfl 9.1.0
-          haxelib run lime rebuild tools -fno-integrated-as
-          haxelib run lime rebuild android -fno-integrated-as
           haxelib list
           sudo chmod -R 777 *
-        env:
-          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
       - name: Download arm64 Builded ffmpeg
         uses: actions/download-artifact@v1

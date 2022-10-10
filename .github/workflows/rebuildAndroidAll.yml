@@ -86,9 +86,8 @@ jobs:
 
       - name: install
         run: |
-          haxelib setup
-          cd ../
-          sudo chmod -R 777 *
+          haxelib setup haxelib
+          sudo chmod -R 777 haxelib
           haxelib --quiet install lime
           haxelib --quiet install openfl
           haxelib --quiet --never run lime setup
@@ -152,10 +151,12 @@ jobs:
           name: tmpx86_64
 
       - name: Lime Rebuild
-        run: haxelib run lime rebuild extension-ffmpeg android
+        run: |
+          cp -r extension-ffmpeg haxelib/
+          haxelib run lime rebuild extension-ffmpeg android
 
       - name: upload rebuilded libs
         uses: actions/upload-artifact@v2.2.4
         with:
           name: Android Libs
-          path: extension-ffmpeg/git/ndll/Android
+          path: haxelib/extension-ffmpeg/git/ndll/Android

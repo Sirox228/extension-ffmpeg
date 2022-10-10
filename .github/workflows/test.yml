@@ -43,8 +43,8 @@ jobs:
 
       - name: Lime Test
         run: |
-          haxelib git lime https://github.com/player-03/lime.git submodules
-          git -C /opt/hostedtoolcache/haxe/4.2.5/x64/lib/lime/git submodule update
+          git clone --single-branch --branch submodules --recurse-submodules https://github.com/player-03/lime.git ../lime
+          haxelib dev lime ../lime
           haxelib --quiet install format
           haxelib --quiet install hxp
           haxelib --quiet install hxcpp

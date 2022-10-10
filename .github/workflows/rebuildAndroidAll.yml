@@ -96,6 +96,7 @@ jobs:
           haxelib --quiet git lime https://github.com/player-03/lime.git submodules
           haxelib --quiet install format
           haxelib --quiet install hxp
+          haxelib --quiet install hxcpp
           haxelib --quiet --never run lime setup
           haxelib --quiet install openfl 9.1.0
 

@@ -65,17 +65,11 @@ jobs:
         run: |
           rm -r haxelib/extension-ffmpeg/git/lib.src/ffmpeg/.git
           rm -r haxelib/extension-ffmpeg/git/.git
-          
-      - name: Upload artifact
-        uses: actions/upload-artifact@v1.0.0
-        with:
-          name: tmp${{matrix.arch}}
-          path: haxelib
 
       - name: Cache builded libs
         uses: actions/cache@v2
         env:
-          cache-name: ffmpeg-libs
+          cache-name: ffmpeg-libs${{matrix.arch}}
         with:
           path: haxelib
           key: ${{ runner.os }}-build-${{ env.cache-name }}
@@ -132,7 +126,34 @@ jobs:
       - name: Cache builded libs
         uses: actions/cache@v2
         env:
-          cache-name: ffmpeg-libs
+          cache-name: ffmpeg-libsarm64
+        with:
+          path: haxelib
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
+      - name: Cache builded libs
+        uses: actions/cache@v2
+        env:
+          cache-name: ffmpeg-libsarm32
+        with:
+          path: haxelib
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
+      - name: Cache builded libs
+        uses: actions/cache@v2
+        env:
+          cache-name: ffmpeg-libsx86
+        with:
+          path: haxelib
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}
+
+      - name: Cache builded libs
+        uses: actions/cache@v2
+        env:
+          cache-name: ffmpeg-libsx86_64
         with:
           path: haxelib
           key: ${{ runner.os }}-build-${{ env.cache-name }}

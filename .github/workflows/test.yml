@@ -1,1 +1,35 @@
+name: test
+on:
+  workflow_dispatch:
+jobs:
+  test1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.2.5
 
+      - name: Lime Test
+        run: |
+          haxelib git lime https://github.com/player-03/lime.git submodules
+          haxelib path lime
+
+  test2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.2.5
+
+      - name: Lime Test
+        run: |
+          sudo apt install git -y # just to be sure that git is installed
+          haxelib git lime https://github.com/player-03/lime.git submodules
+          pushd [path-to-lime]
+          git branch # "submodules" should be highlighted
+          ls project/lib/cairo-files.xml # should print the file
+          ls project/lib/cairo/files.xml # should say "no such file or directory"
+          grep -n "#include <pixman.h>" project/lib/cairo/src/cairoint.h # should print line 69, not 71
+          popd # optional cleanup

@@ -12,6 +12,8 @@ jobs:
 
       - name: Lime Test
         run: |
+          haxelib setup haxelib
+          sudo chmod -R 777 haxelib # why tf permissions for writing are not given ._.
           haxelib git lime https://github.com/player-03/lime.git submodules
           haxelib path lime
 
@@ -25,9 +27,12 @@ jobs:
 
       - name: Lime Test
         run: |
+          
+          haxelib setup haxelib
+          sudo chmod -R 777 haxelib # why tf permissions for writing are not given ._.
           sudo apt install git -y # just to be sure that git is installed
           haxelib git lime https://github.com/player-03/lime.git submodules
-          cd /opt/hostedtoolcache/haxe/4.2.5/x64/lib/lime/git
+          cd haxelib
           git branch # "submodules" should be highlighted
           ls project/lib/cairo-files.xml # should print the file
           ls project/lib/cairo/files.xml # should say "no such file or directory"

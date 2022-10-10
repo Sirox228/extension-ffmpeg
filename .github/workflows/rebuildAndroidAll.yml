@@ -103,8 +103,9 @@ jobs:
           haxelib setup haxelib
           sudo chmod -R 777 haxelib
           haxelib --quiet git lime https://github.com/player-03/lime.git submodules
-          haxelib --quiet install openfl 9.1.0
+          haxelib --quiet install format
           haxelib --quiet --never run lime setup
+          haxelib --quiet install openfl 9.1.0
 
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1

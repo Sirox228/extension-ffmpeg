@@ -75,6 +75,8 @@ jobs:
   lime-rebuild-ffmpeg:
     needs: compile-ffmpeg
     runs-on: ubuntu-latest
+    # (sirox) i hate lime so much for forcing me to set an architecture, but no matter the case compiling for all 4 architectures on android
+    continue-on-error: true
     steps:
       - name: Setup Java JDK
         uses: actions/setup-java@v1
@@ -159,10 +161,17 @@ jobs:
         with:
           name: tmpx86_64
 
-      - name: Lime Rebuild
-        run: |
-          tree haxelib
-          haxelib run lime rebuild extension-ffmpeg android
+      - name: Lime Rebuild arm64
+        run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_ARM64
+
+      - name: Lime Rebuild armv7
+        run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_ARMV7
+
+      - name: Lime Rebuild x86
+        run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_X86
+
+      - name: Lime Rebuild x86_64
+        run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_X86_64
 
       - name: upload rebuilded libs
         uses: actions/upload-artifact@v2.2.4

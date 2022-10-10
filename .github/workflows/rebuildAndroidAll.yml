@@ -2,67 +2,23 @@ name: rebuildAndroidAll
 on:
   workflow_dispatch:
 jobs:
-  configure:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@main
-        with:
-          submodules: recursive
-
-      - name: Setup Android NDK
-        uses: nttld/setup-ndk@v1
-        id: setup-ndk
-        with:
-          ndk-version: r21e
-
-      - name: Setup Java JDK
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v2
-
-      - name: Setup Haxe
-        uses: krdlab/setup-haxe@master
-        with:
-          haxe-version: 4.2.5
-
-      - name: Install Haxelibs
-        run: |
-          haxelib setup haxelib
-          sudo chmod -R 777 haxelib
-          haxelib --quiet install lime
-          haxelib --quiet install openfl
-          haxelib --quiet --never run lime setup
-          haxelib git extension-ffmpeg https://github.com/Sirox228/extension-ffmpeg
-          
-      - name: Setup Lime
-        run: |
-          haxelib run lime setup -alias -y
-          haxelib run lime config ANDROID_SDK $ANDROID_HOME
-          haxelib run lime config JAVA_HOME $JAVA_HOME
-          haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
-          haxelib run lime config ANDROID_SETUP true
-          haxelib list
-          sudo chmod -R 777 *
-        env:
-          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-          
   compile-ffmpeg:
-    needs: configure
     runs-on: ubuntu-latest
     strategy:
       matrix:
         arch: [arm64, arm32, x86, x86_64]
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
         with:
-          submodules: recursive
+          haxe-version: 4.2.5
 
-      # (sirox) crutch because idk how to get a value from another job
+      - name: install
+        run: |
+          haxelib setup haxelib
+          sudo chmod -R 777 haxelib
+          haxelib git extension-ffmpeg https://github.com/Sirox228/extension-ffmpeg
+
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1
         id: setup-ndk
@@ -104,20 +60,100 @@ jobs:
           ./build_androidx86_64.sh
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: tmp${{matrix.arch}}
+          path:
           
   lime-rebuild-ffmpeg:
     needs: compile-ffmpeg
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
+      - name: Setup Java JDK
+        uses: actions/setup-java@v1
         with:
-          submodules: recursive
+          java-version: 11
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@master
+        with:
+          haxe-version: 4.2.5
+
+      - name: install
+        run: |
+          haxelib setup haxelib
+          sudo chmod -R 777 haxelib
+          haxelib --quiet install lime
+          haxelib --quiet install openfl
+          haxelib --quiet --never run lime setup
+
+      - name: Setup Android NDK
+        uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r21e
+
+      - name: Setup Lime
+        run: |
+          haxelib run lime setup -alias -y
+          haxelib run lime config ANDROID_SDK $ANDROID_HOME
+          haxelib run lime config JAVA_HOME $JAVA_HOME
+          haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
+          haxelib run lime config ANDROID_SETUP true
+          haxelib list
+          sudo chmod -R 777 *
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+
+      - name: Download arm64 Builded ffmpeg
+        uses: actions/download-artifact@v1
+        with:
+          name: tmparm64
+
+      - name: Download arm32 Builded ffmpeg
+        uses: actions/download-artifact@v1
+        with:
+          name: tmparm32
+
+      - name: Download x86 Builded ffmpeg
+        uses: actions/download-artifact@v1
+        with:
+          name: tmpx86
+
+      - name: Download x86_64 Builded ffmpeg
+        uses: actions/download-artifact@v1
+        with:
+          name: tmpx86_64
+
+      - name: remove tmp arm64
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: tmparm64
+
+      - name: remove tmp arm32
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: tmparm32
+
+      - name: remove tmp x86
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: tmpx86
+
+      - name: remove tmp x86_64
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: tmpx86_64
 
       - name: Lime Rebuild
         run: haxelib run lime rebuild extension-ffmpeg android
 
-      - name: Publish Artifact
+      - name: upload rebuilded libs
         uses: actions/upload-artifact@v2.2.4
         with:
           name: Android Libs

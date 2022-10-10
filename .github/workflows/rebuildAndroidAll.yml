@@ -75,8 +75,6 @@ jobs:
   lime-rebuild-ffmpeg:
     needs: compile-ffmpeg
     runs-on: ubuntu-latest
-    # (sirox) i hate lime so much for forcing me to set an architecture, but no matter the case compiling for all 4 architectures on android
-    continue-on-error: true
     steps:
       - name: Setup Java JDK
         uses: actions/setup-java@v1
@@ -95,7 +93,7 @@ jobs:
         run: |
           haxelib setup haxelib
           sudo chmod -R 777 haxelib
-          haxelib --quiet install lime 7.9.0
+          haxelib --quiet git lime https://github.com/player-03/lime.git submodules
           haxelib --quiet install openfl 9.1.0
           haxelib --quiet --never run lime setup
 
@@ -112,8 +110,10 @@ jobs:
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config ANDROID_SETUP true
-          haxelib set lime 7.9.0
+          haxelib set lime git
           haxelib set openfl 9.1.0
+          haxelib run lime rebuild tools -fno-integrated-as
+          haxelib run lime rebuild android -fno-integrated-as
           haxelib list
           sudo chmod -R 777 *
         env:
@@ -163,17 +163,8 @@ jobs:
         with:
           name: tmpx86_64
 
-      - name: Lime Rebuild arm64
-        run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_ARM64
-
-      - name: Lime Rebuild armv7
-        run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_ARMV7
-
-      - name: Lime Rebuild x86
-        run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_X86
-
-      - name: Lime Rebuild x86_64
-        run: haxelib run lime rebuild extension-ffmpeg android -D HXCPP_X86_64
+      - name: Lime Rebuild
+        run: haxelib run lime rebuild extension-ffmpeg android -fno-integrated-as
 
       - name: upload rebuilded libs
         uses: actions/upload-artifact@v2.2.4

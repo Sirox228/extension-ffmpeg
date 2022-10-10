@@ -65,7 +65,7 @@ jobs:
         uses: actions/upload-artifact@v1.0.0
         with:
           name: tmp${{matrix.arch}}
-          path:
+          path: haxelib
           
   lime-rebuild-ffmpeg:
     needs: compile-ffmpeg
@@ -86,8 +86,9 @@ jobs:
 
       - name: install
         run: |
-          haxelib setup haxelib
-          sudo chmod -R 777 haxelib
+          haxelib setup
+          cd ../
+          sudo chmod -R 777 *
           haxelib --quiet install lime
           haxelib --quiet install openfl
           haxelib --quiet --never run lime setup

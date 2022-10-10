@@ -71,6 +71,18 @@ jobs:
         with:
           name: tmp${{matrix.arch}}
           path: haxelib
+
+      - name: Cache builded libs
+        uses: actions/cache@v2
+        env:
+          cache-name: ffmpeg-libs
+        with:
+          path: haxelib
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
           
   lime-rebuild-ffmpeg:
     needs: compile-ffmpeg
@@ -119,49 +131,17 @@ jobs:
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
-      - name: Download arm64 Builded ffmpeg
-        uses: actions/download-artifact@v1
+      - name: Cache builded libs
+        uses: actions/cache@v2
+        env:
+          cache-name: ffmpeg-libs
         with:
-          name: tmparm64
           path: haxelib
-
-      - name: Download arm32 Builded ffmpeg
-        uses: actions/download-artifact@v1
-        with:
-          name: tmparm32
-          path: haxelib
-
-      - name: Download x86 Builded ffmpeg
-        uses: actions/download-artifact@v1
-        with:
-          name: tmpx86
-          path: haxelib
-
-      - name: Download x86_64 Builded ffmpeg
-        uses: actions/download-artifact@v1
-        with:
-          name: tmpx86_64
-          path: haxelib
-
-      - name: remove tmp arm64
-        uses: geekyeggo/delete-artifact@v1
-        with:
-          name: tmparm64
-
-      - name: remove tmp arm32
-        uses: geekyeggo/delete-artifact@v1
-        with:
-          name: tmparm32
-
-      - name: remove tmp x86
-        uses: geekyeggo/delete-artifact@v1
-        with:
-          name: tmpx86
-
-      - name: remove tmp x86_64
-        uses: geekyeggo/delete-artifact@v1
-        with:
-          name: tmpx86_64
+          key: ${{ runner.os }}-build-${{ env.cache-name }}
+          restore-keys: |
+          ${{ runner.os }}-build-${{ env.cache-name }}-
+          ${{ runner.os }}-build-
+          ${{ runner.os }}-
 
       - name: Lime Rebuild
         run: haxelib run lime rebuild extension-ffmpeg android -fno-integrated-as

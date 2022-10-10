@@ -106,11 +106,11 @@ jobs:
           haxelib --quiet install format
           haxelib --quiet install hxp
           haxelib --quiet install hxcpp
+          haxelib run lime rebuild tools
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
           haxelib run lime config JAVA_HOME $JAVA_HOME
           haxelib run lime config ANDROID_SETUP true
-          haxelib run lime rebuild tools
           haxelib run lime rebuild android
           haxelib --quiet --never run lime setup
           haxelib --quiet install openfl 9.1.0

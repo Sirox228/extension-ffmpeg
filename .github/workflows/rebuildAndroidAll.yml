@@ -3,6 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   configure:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@main

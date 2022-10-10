@@ -18,7 +18,8 @@ jobs:
           haxelib setup haxelib
           sudo chmod -R 777 haxelib
           haxelib git extension-ffmpeg https://github.com/Sirox228/extension-ffmpeg
-          rm -r haxelib/extension-ffmpeg/git/lib.src/ffmpeg/git
+          rm -r haxelib/extension-ffmpeg/git/lib.src/ffmpeg/.git
+          rm -r haxelib/extension-ffmpeg/git/.git
 
       - name: Setup Android NDK
         uses: nttld/setup-ndk@v1

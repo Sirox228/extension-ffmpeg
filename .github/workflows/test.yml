@@ -44,6 +44,7 @@ jobs:
 
       - name: Lime Test
         run: |
+          sudo apt install libasound2-dev -y
           git clone --single-branch --branch submodules --recurse-submodules https://github.com/player-03/lime.git ../lime
           haxelib dev lime ../lime
           haxelib --quiet install format

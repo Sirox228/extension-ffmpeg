@@ -101,7 +101,9 @@ jobs:
         run: |
           haxelib setup haxelib
           sudo chmod -R 777 haxelib
-          haxelib --quiet git lime https://github.com/player-03/lime.git submodules
+          sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev -y
+          git clone --single-branch --branch submodules --recurse-submodules https://github.com/player-03/lime.git ../lime
+          haxelib dev lime ../lime
           haxelib --quiet install format
           haxelib --quiet install hxp
           haxelib --quiet install hxcpp
@@ -113,7 +115,6 @@ jobs:
           haxelib run lime rebuild android
           haxelib --quiet --never run lime setup
           haxelib --quiet install openfl 9.1.0
-          haxelib set lime git
           haxelib set openfl 9.1.0
           haxelib list
           sudo chmod -R 777 *

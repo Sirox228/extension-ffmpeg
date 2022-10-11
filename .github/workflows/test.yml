@@ -57,6 +57,8 @@ jobs:
           ndk-version: r21e
 
       - name: Lime Test
+        env:
+          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
         run: |
           sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev -y
           git clone --single-branch --branch submodules --recurse-submodules https://github.com/player-03/lime.git ../lime

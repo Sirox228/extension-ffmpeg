@@ -90,7 +90,6 @@ jobs:
         with:
           ndk-version: r21e
 
-
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
         with:

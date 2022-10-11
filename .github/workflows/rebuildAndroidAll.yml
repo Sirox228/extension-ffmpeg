@@ -107,6 +107,7 @@ jobs:
           haxelib --quiet install format
           haxelib --quiet install hxp
           haxelib --quiet install hxcpp
+          haxelib --quiet install lime-samples
           haxelib run lime rebuild tools
           haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_HOME
           haxelib run lime config ANDROID_SDK $ANDROID_HOME
